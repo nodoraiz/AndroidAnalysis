@@ -80,6 +80,6 @@ if __name__ == "__main__":
 		analyze(sys.argv[1], 'output-'+sys.argv[1]+'/content/', 'output-'+sys.argv[1]+'/report.txt')
 		
 	else:
-		print '\nInvalid parameters or the file it\'s not accessible.\n\nUsage: ./prepare.py file.apk\n'
+		print '\nInvalid parameters or the file it\'s not accessible.\n\nUsage: analyze.py file.apk\n'
 		sys.exit(0)
 		
