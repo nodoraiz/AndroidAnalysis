@@ -9,12 +9,15 @@ import re
 
 
 def printBanner(file, msg):
+	
 	file.write('\n\n####################################\n')
 	file.write('\tResults for ' + msg + '\n')
 	file.write('####################################\n\n')
 	
+	
 
 def analyze(input_file, output_directory, report_file):
+	
 	regex_dict = {
 				'URLs': 'https?:\/\/?[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]*\/?', 
 				'email': '[a-zA-Z1-9]+@[a-zA-Z1-9]+\.[a-zA-Z]{2,4}',
@@ -72,8 +75,10 @@ def analyze(input_file, output_directory, report_file):
 
 
 if __name__ == "__main__":
+	
 	if(len(sys.argv) == 2 and sys.argv[1].endswith(".apk") and os.path.isfile(sys.argv[1])):
 		analyze(sys.argv[1], 'output-'+sys.argv[1]+'/content/', 'output-'+sys.argv[1]+'/report.txt')
+		
 	else:
 		print '\nInvalid parameters or the file it\'s not accessible.\n\nUsage: ./prepare.py file.apk\n'
 		sys.exit(0)
