@@ -28,11 +28,11 @@ def analyze(input_file, output_directory, report_file):
 				'Gmail' : 'gmail',
 				}
 	
-	#Generate JAR for jd-gui analysis
-	os.system('d2j-dex2jar ' + input_file + ' -f -o ' + output_directory + input_file + '.jar')
-	
 	#Disassemble the APK and resource extraction
 	os.system('apktool.jar d ' + input_file + ' ' + output_directory)
+	
+	#Generate JAR for jd-gui analysis
+	os.system('d2j-dex2jar ' + input_file + ' -f -o ' + output_directory + input_file + '.jar')
 	
 	#Extraction of the cert
 	zip = zipfile.ZipFile(input_file)
