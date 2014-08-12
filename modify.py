@@ -1,5 +1,3 @@
-#! /usr/bin/python
-
 import os
 import os.path
 import sys
@@ -25,16 +23,16 @@ def remove_from_zip(zipfname, *filenames):
 
 def APKmodify(apkFile):	
 	
+	#Edit the manifest to give access to the code added
+	os.system('apktool.jar d '+apkFile+'.apk '+apkFile+'-dir-apktool')
+	print '\n\n=> Time to edit the AndroidManifest.xml in '+apkFile+'-dir-apktool.'
+	print '==>Press ENTER to continue.'
+	raw_input()
+	
 	#Modify and add code to the APK  
 	os.system('d2j-dex2jar -f -o '+apkFile+'-dex2jar.jar '+apkFile+'.apk')
 	os.system('d2j-jar2jasmin -f -o '+apkFile+'-dir '+apkFile+'-dex2jar.jar')
 	print '\n\n=> Time to edit the code in '+apkFile+'-dir.'
-	print '==>Press ENTER to continue.'
-	raw_input()
-	
-	#Edit the manifest to give access to the code added
-	os.system('apktool.jar d '+apkFile+'.apk '+apkFile+'-dir-apktool')
-	print '\n\n=> Time to edit the AndroidManifest.xml in '+apkFile+'-dir-apktool.'
 	print '==>Press ENTER to continue.'
 	raw_input()
 
@@ -58,32 +56,56 @@ def APKmodify(apkFile):
 	
 	#Sign the APK forged
 	os.system('d2j-apk-sign -f -o '+apkFile+'-sign.apk '+apkFile+'-edited.apk')
-	print '\n\n=> The modified file '+apkFile+'-sign.apk its ready to be installed'
+	print '\n\n=> The modified file '+apkFile+'-sign.apk is ready to be installed'
 	
 	#Remove all the temporal files
 	if(os.path.exists('classes.dex')):
-		os.remove('classes.dex')
+		try:
+			os.remove('classes.dex')
+		except:
+			print 'Could not remove the file classes.dex'
 		
 	if(os.path.exists('AndroidManifest.xml')):
-		os.remove('AndroidManifest.xml')
+		try:
+			os.remove('AndroidManifest.xml')
+		except:
+			print 'Could not remove the file AndroidManifest.xml'
 		
 	if(os.path.exists(apkFile+'-dir-apktool')):
-		shutil.rmtree(apkFile+'-dir-apktool')
+		try:
+			shutil.rmtree(apkFile+'-dir-apktool')
+		except:
+			print 'Could not remove the dir '+apkFile+'-dir-apktool'
 		
 	if(os.path.exists(apkFile+'-dir')):
-		shutil.rmtree(apkFile+'-dir')
+		try:
+			shutil.rmtree(apkFile+'-dir')
+		except:
+			print 'Could not remove the dir '+apkFile+'-dir'
 		
 	if(os.path.exists(apkFile+'-dex2jar.jar')):
-		os.remove(apkFile+'-dex2jar.jar')
+		try:
+			os.remove(apkFile+'-dex2jar.jar')
+		except:
+			print 'Could not remove the file '+apkFile+'-dex2jar.jar'
 		
 	if(os.path.exists(apkFile+'-edited.jar')):
-		os.remove(apkFile+'-edited.jar')
+		try:
+			os.remove(apkFile+'-edited.jar')
+		except:
+			print 'Could not remove the file '+apkFile+'-edited.jar'
 		
 	if(os.path.exists(apkFile+'-manifest.apk')):
-		os.remove(apkFile+'-manifest.apk')
+		try:
+			os.remove(apkFile+'-manifest.apk')
+		except:
+			print 'Could not remove the file '+apkFile+'-manifest.apk'
 		
 	if(os.path.exists(apkFile+'-edited.apk')):
-		os.remove(apkFile+'-edited.apk')
+		try:
+			os.remove(apkFile+'-edited.apk')
+		except:
+			print 'Could not remove the file '+apkFile+'-edited.apk'
 	
 
 
